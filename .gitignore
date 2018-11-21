@@ -29,7 +29,5 @@ scriptcs_packages/
 .yarnrc
 **/dist/*
 **/tmp/*
-**/templates/*.js
-**/templates/*.html
 *.local
 *.lock

@@ -37,7 +37,7 @@ export default () => (app: Express) => {
         const { default: useUi } = await import("./use-ui");
         const { resolve } = await import("path");
         await useUi({
-          uiPath: resolve(__dirname, "../../app-ui/build"),
+          uiPath: resolve(__dirname, process.env.UI_PATH),
           /* defaultDocument: "index.html" */
         })(app);
       }
