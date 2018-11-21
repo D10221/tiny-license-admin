@@ -28,7 +28,7 @@ export default (options: Partial<typeof defaultOptions> = defaultOptions) => {
     defaultDocumentExists
   });  
   const disabled = !uiPath || !uiPathExists || !baseUrl || !defaultDocumentExists;
-  if(disabled) log("Disabled!");
+  if(disabled) debug("Disabled!");
   /**
    * @returns configure
    */
