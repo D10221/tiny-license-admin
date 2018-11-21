@@ -33,9 +33,14 @@
     "@australis/send-grid-mail": "^0.1.0",
     "@australis/tiny-auth": "0.2.0-1",
     "@australis/tiny-crypto": "^0.1.0-2",
-    "@australis/tiny-license-controller-customer": "^0.1.0-6",
-    "@australis/tiny-license-controller-license": "^0.1.0-6",
-    "@australis/tiny-license-controller-product": "^0.1.0-6",
+    "@australis/tiny-license-controller-customer": "^0.1.0-7",
+    "@australis/tiny-license-controller-license": "^0.1.0-7",
+    "@australis/tiny-license-controller-product": "^0.1.0-7",
+    "@australis/tiny-license-controller-validate": "^0.1.0-7",
+    "@australis/tiny-license-controller-dwnld": "^0.1.0-7",
+    "@australis/tiny-license-controller-deliver": "^0.1.0-7",
+    "@australis/tiny-license-controller-sign": "^0.1.0-7",
+    "@australis/tiny-license-middleware-validate": "^0.1.0-7",
     "@australis/tiny-sql": "1.0.0-18",
     "@sendgrid/mail": "^6.3.1",
     "body-parser": "^1.18.2",
@@ -61,6 +66,6 @@
   },
   "files": [
     "build/*",
-    ".env"    
+    ".env"
   ]
 }
