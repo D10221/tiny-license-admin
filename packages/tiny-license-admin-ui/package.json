@@ -41,11 +41,12 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "packit": "npm pack && cp *.tgz ../"
   },
   "files": [
     "build/*",
-    ".env.production.env",
+    ".env",
     "package.json",
     "README.md"
   ],

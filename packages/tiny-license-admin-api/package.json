@@ -56,6 +56,12 @@
     "build": "rimraf build && tsc -p .",
     "watch": "tsc -p . --watch",
     "start": "cross-env NODE_ENV=development ENV_PATH=./.env.local DEBUG=@australis*,@d10221*,@local* node build/",
-    "dev": "cross-env NODE_ENV=development ENV_PATH=./.env.local DEBUG=@australis*,@d10221*,@local* node -r ts-node/register src/index.ts"
-  }
+    "dev": "cross-env NODE_ENV=development ENV_PATH=./.env.local DEBUG=@australis*,@d10221*,@local* node -r ts-node/register src/index.ts",
+    "packit": "npm pack && cp *.tgz ../"
+  },
+  "files": [
+    "build/*",
+    ".env",
+    ""
+  ]
 }
