@@ -1,0 +1,102 @@
+#!/usr/bin/env node
+
+/*
+ *  https://github.com/coreybutler/node-windows
+ */
+const { isNullOrUndefined } = require("util");
+const path = require("path");
+const Service = require("node-windows").Service;
+const { SERVICE_NAME, SERVICE_DESCRIPTION, ENTRY_POINT } = require("./constants");
+
+let scriptPath = `${path.join(__dirname, "../", ENTRY_POINT)}`;
+
+console.log("scriptPath: " + scriptPath);
+
+// Create a new service object
+const svc = new Service({
+    name: SERVICE_NAME,
+    description: SERVICE_DESCRIPTION,
+    script: scriptPath,
+    env: {
+        DEBUG: "australis*,build/*",
+        NODE_ENV: "production"
+    }
+});
+
+// Listen for the "install" event, which indicates the
+// process is available as a service.
+svc.on("install", function () {
+    // svc.start();
+    console.log("Installing %s", SERVICE_NAME);
+});
+svc.on("alreadyinstalled", () => {
+    console.log("%s Already Installed.", SERVICE_NAME)
+});
+svc.on("invalidinstallation ", () => {
+    console.log("invalid Installation: %s", SERVICE_NAME);
+})
+svc.on("uninstall ", () => {
+    console.log("Uninstalling  %s", SERVICE_NAME);
+});
+svc.on("start", () => {
+    console.log("Starting %s", SERVICE_NAME);
+});
+svc.on("stop", () => {
+    console.log("Stoping %s", SERVICE_NAME);
+});
+svc.on("error ", () => {
+    console.log("Error: %s", SERVICE_NAME);
+})
+const args = process.argv.slice(2);
+const ops = {
+    install: !isNullOrUndefined(args.find(x => x.toLowerCase() === "--install")),
+    uninstall: !isNullOrUndefined(args.find(x => x.toLowerCase() === "--uninstall")),
+    start: !isNullOrUndefined(args.find(x => x.toLowerCase() === "--start")),
+    stop: !isNullOrUndefined(args.find(x => x.toLowerCase() === "--stop")),
+}
+
+const stop = () => new Promise(resolve => {
+    svc.on("stop", () => resolve());
+    svc.stop();
+});
+const start = () => new Promise(resolve => {
+    svc.on("start", () => resolve());
+    svc.start();
+});
+const install = () => new Promise(resolve => {
+    svc.on("install", () => resolve());
+    svc.install();
+});
+const uninstall = () => new Promise(resolve => {
+    svc.on("uninstall", () => resolve());
+    svc.uninstall();
+});
+
+const run = async () => {
+    let ok = false;
+    try {
+        if (ops.stop) {
+            ok = true;
+            await stop();
+        }
+        if (ops.uninstall) {
+            ok = true;
+            await uninstall();
+        }
+        if (ops.install) {
+            ok = true;
+            await install();
+        }
+        if (ops.start) {
+            ok = true;
+            await start();
+        }
+    } catch (error) {
+        console.error(error);
+        process.exit();
+    }
+    if (!ok) {
+        console.log(`Usage:\n \t --install|--uninstall|--start|--stop`);
+    }
+}
+run().then(process.exit).then(() => process.exit(-1))
