@@ -8,6 +8,6 @@
   "workspaces":[
     "packages/tiny-license-admin-api",
     "packages/tiny-license-admin-ui",
-    "packages/tiny-license-validate-cmd"
+    "packages/tiny-license-cmds"
   ]
 }
