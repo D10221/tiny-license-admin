@@ -4,7 +4,7 @@ import { readFileSync } from "fs";
 const args = minimist(process.argv.slice(2));
 /**
  * @param {string} token
- * @return string 
+ * @return {string} 
  */
 function getToken(token) {
     try {
