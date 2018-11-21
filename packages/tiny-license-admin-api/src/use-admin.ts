@@ -66,31 +66,31 @@ export default () => async <A extends Express | Router>(app: A): Promise<A> => {
       configure: licenses,
     } = await import("@australis/tiny-license-controller-license");
     const configure = licenses({
-      issuer: "localhost",
+      issuer: process.env.TINY_LICENSEWARE_ISSUER,
       secret: process.env.TINY_LICENSEWARE_SECRET,
-      baseUrl: process.env.HOST_BASE,
-      prefix: `${prefix}/license`,
-      before: authorize,
+      // Validator URL added to license
+      baseUrl: process.env.TINY_LICENSEWARE_HOST_BASE,
+      prefix: `${prefix}/license`,      
       get: {
-        before: [requireRole(["admin"])],
+        before: [authorize, requireRole(["admin"])],
       },
       put: {
-        before: [requireRole(["admin"])],
+        before: [authorize, requireRole(["admin"])],
       },
       post: {
-        before: [requireRole(["admin"])],
+        before: [authorize, requireRole(["admin"])],
       },
       del: {
-        before: [requireRole(["admin", "delete"])],
+        before: [authorize, requireRole(["admin", "delete"])],
       },
       download: {
-        before: [requireRole(["admin", "download"])],
+        before: [authorize, requireRole(["admin", "download"])],
       },
       deliver: {
-        before: [requireRole(["user"])],
+        before: [authorize, requireRole(["user"])],
       },
       validate: {
-        before: [requireRole(["user"])],
+        // before: [requireRole(["user"])],
       }
     });
     configure(app);
