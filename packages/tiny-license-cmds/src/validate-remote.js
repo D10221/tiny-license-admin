@@ -50,27 +50,27 @@ export default async function(argsMap) {
     }
 
     console.log("Token: '%s'", token || "?");
-    const host = validator || argsMap.host;
-    if (!host) {
-      return Promise.reject("Host required");
+    const validatorUrl = argsMap.validator || validator;
+    if (!validatorUrl) {
+      return Promise.reject("validator url required");
     }
 
     let url;
     switch (argsMap.mode) {
       case "params": {
-        url = `${host}/${token}`;
+        url = `${validatorUrl}/${token}`;
         break;
       }
       case "headers": {
-        url = `${host}`;
+        url = `${validatorUrl}`;
         break;
       }
       case "query": {
-        url = `${host}?token=${token}`;
+        url = `${validatorUrl}?token=${token}`;
         break;
       }
       default: {
-        url = `${host}?token=${token}`;
+        url = `${validatorUrl}?token=${token}`;
       }
     }
 
