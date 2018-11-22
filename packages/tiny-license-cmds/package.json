@@ -13,6 +13,7 @@
     "@types/node-fetch": "^2.1.4"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=development ENV_PATH=./.env.local node --inspect -r ts-node/register src/index.js"
+    "start": "cross-env NODE_ENV=development ENV_PATH=./.env.local node -r ts-node/register src/index.js",
+    "inspect": "cross-env NODE_ENV=development ENV_PATH=./.env.local node --inspect -r ts-node/register src/index.js"
   }
 }
